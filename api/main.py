@@ -29,22 +29,22 @@ if __name__ == "__main__":
 # mock function
 def processVideo(video) -> str:
     result = '''{
-        "topic": ''' + video.filename + ''',
-        "writer":"test",
-        "subtopics":[
-            {
-                "title":"title1",
-                "content":"content1"
-            },
-            {
-                "title":"title2",
-                "content":"content2"
-            },
-            {
-                "title":"title3",
-                "content":"content3"
-            }
-        ],
-        "summary":"summary_test"
-    }'''
+    "topic": ''' + video.filename + ''',
+    "writer":"test",
+    "subtopics":[
+        {
+            "title":"title1",
+            "content":"content1"
+        },
+        {
+            "title":"title2",
+            "content":"content2"
+        },
+        {
+            "title":"title3",
+            "content":"content3"
+        }
+    ],
+    "summary":"summary_test"
+}'''
     return JSONResponse(content=result)
