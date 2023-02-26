@@ -4,6 +4,7 @@ import push2gpt
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 import uvicorn
 import wav2txt
@@ -31,10 +32,11 @@ async def uploadVideo(video: UploadFile = File(...)):
         shutil.copyfileobj(video.file, buffer)
     # result = processVideo(video)
     query = wav2txt.speech2text(path)
-    print(query + "\n\n\n")
+    # print(query + "\n\n\n")
     result = push2gpt.summary(query)
-    print(result)
-    return result
+    # print(result)
+    result_json = jsonable_encoder(result)
+    return JSONResponse(content=result_json)
 
 
 if __name__ == "__main__":
