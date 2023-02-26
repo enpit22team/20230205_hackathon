@@ -1,6 +1,9 @@
 import shutil
 
 import push2gpt
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import wav2txt
 from fastapi import FastAPI, File, UploadFile
@@ -8,6 +11,17 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "https://soonawatchy.netlify.app",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/upload")
 async def uploadVideo(video: UploadFile = File(...)):
