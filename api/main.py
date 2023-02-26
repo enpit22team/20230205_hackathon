@@ -1,11 +1,11 @@
 import shutil
 
-import push2gpt
+from . import push2gpt
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-import wav2txt
+from . import wav2txt
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 

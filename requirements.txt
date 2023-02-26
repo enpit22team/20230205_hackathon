@@ -4,3 +4,5 @@ ffmpeg-python
 fastapi
 uvicorn
 python-multipart
+openai
+python-dotenv
