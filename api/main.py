@@ -4,6 +4,7 @@ import push2gpt
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import uvicorn
 import wav2txt
 from fastapi import FastAPI, File, UploadFile
