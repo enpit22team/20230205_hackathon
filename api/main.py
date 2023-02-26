@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import uvicorn
 
 app = FastAPI()
@@ -27,5 +28,23 @@ if __name__ == "__main__":
 
 # mock function
 def processVideo(video) -> str:
-    result = "Video name is " + video.filename
-    return result
+    result = '''{
+        "topic": ''' + video.filename + ''',
+        "writer":"test",
+        "subtopics":[
+            {
+                "title":"title1",
+                "content":"content1"
+            },
+            {
+                "title":"title2",
+                "content":"content2"
+            },
+            {
+                "title":"title3",
+                "content":"content3"
+            }
+        ],
+        "summary":"summary_test"
+    }'''
+    return JSONResponse(content=result)
