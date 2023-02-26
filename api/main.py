@@ -1,7 +1,14 @@
+import shutil
+
+import push2gpt
+
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
+import wav2txt
+from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -19,7 +26,14 @@ app.add_middleware(
 
 @app.post("/upload")
 async def uploadVideo(video: UploadFile = File(...)):
-    result = processVideo(video)
+    path =f"./data/{video.filename}"
+    with open(path, "w+b") as buffer:
+        shutil.copyfileobj(video.file, buffer)
+    # result = processVideo(video)
+    query = wav2txt.speech2text(path)
+    print(query + "\n\n\n")
+    result = push2gpt.summary(query)
+    print(result)
     return result
 
 
@@ -28,23 +42,6 @@ if __name__ == "__main__":
 
 # mock function
 def processVideo(video) -> str:
-    result = '''{
-    "topic": ''' + video.filename + ''',
-    "writer":"test",
-    "subtopics":[
-        {
-            "title":"title1",
-            "content":"content1"
-        },
-        {
-            "title":"title2",
-            "content":"content2"
-        },
-        {
-            "title":"title3",
-            "content":"content3"
-        }
-    ],
-    "summary":"summary_test"
-}'''
-    return JSONResponse(content=result)
+    # result = "Video name is " + video.filename
+    result = wav2txt.speech2text(video)
+    return result
